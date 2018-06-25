@@ -1,0 +1,13 @@
+Exemple d'élèment droppable pour réaliser une grib :
+
+https://mattlewis92.github.io/angular-draggable-droppable/demo/
+
+https://mattlewis92.github.io/angular-draggable-droppable/docs/
+
+https://www.jqwidgets.com/angular/angular-grid/angular-grid-dragdrop.htm
+
+
+
+Exemple application pour réaliser un JDR :
+
+https://twinery.org/2/#!/stories/0498abc3-01bc-43a9-ac50-ea6dd05e9105
