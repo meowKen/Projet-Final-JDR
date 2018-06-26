@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: jdr-final
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: ajc
+Built-By: user
 Implementation-Vendor-Id: com.monsite
-Build-Jdk: 1.8.0_171
+Build-Jdk: 1.8.0_161
 Implementation-URL: http://projects.spring.io/spring-boot/spring-boot-
  starter-parent/jdr-final/
 Created-By: Maven Integration for Eclipse
