@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.DirectionDao;
 import com.monapp.entity.Direction;
+import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -28,6 +30,7 @@ public class DirectionController {
 	DirectionDao directionDao;
 	
 	@GetMapping("/directions/{id}")
+	@JsonView(Views.Direction.class)
 	public ResponseEntity<Direction> findOne(@PathVariable("id") Integer id){
 		Direction p = directionDao.findByPrimaryKey(id);
 		
@@ -39,12 +42,14 @@ public class DirectionController {
 	}
 	
 	@GetMapping("/directions")
+	@JsonView(Views.Direction.class)
 	public ResponseEntity<List<Direction>> findAll(){
 		List<Direction> directions = directionDao.findAll();
 		return new ResponseEntity<List<Direction>>(directions, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/directions/{id}")
+	@JsonView(Views.Direction.class)
 	public ResponseEntity<Direction> delete(@PathVariable("id") Integer id){
 		Direction tmp = directionDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -56,6 +61,7 @@ public class DirectionController {
 	}
 	
 	@PostMapping("/directions")
+	@JsonView(Views.Direction.class)
 	public ResponseEntity<Direction> create(@Valid @RequestBody Direction direction) {
 		if (direction.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -65,6 +71,7 @@ public class DirectionController {
 	}
 	
 	@PutMapping("/directions")
+	@JsonView(Views.Direction.class)
 	public ResponseEntity<Direction> update(@RequestBody Direction direction) {
 		if (direction.getId() == 0) {
 			return create(direction);

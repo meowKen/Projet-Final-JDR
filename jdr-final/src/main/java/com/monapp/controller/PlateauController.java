@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.PlateauDao;
 import com.monapp.entity.Plateau;
+import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -28,6 +30,7 @@ public class PlateauController {
 	PlateauDao plateauDao;
 	
 	@GetMapping("/plateaus/{id}")
+	@JsonView(Views.Plateau.class)
 	public ResponseEntity<Plateau> findOne(@PathVariable("id") Integer id){
 		Plateau p = plateauDao.findByPrimaryKey(id);
 		
@@ -39,12 +42,14 @@ public class PlateauController {
 	}
 	
 	@GetMapping("/plateaus")
+	@JsonView(Views.Plateau.class)
 	public ResponseEntity<List<Plateau>> findAll(){
 		List<Plateau> plateaus = plateauDao.findAll();
 		return new ResponseEntity<List<Plateau>>(plateaus, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/plateaus/{id}")
+	@JsonView(Views.Plateau.class)
 	public ResponseEntity<Plateau> delete(@PathVariable("id") Integer id){
 		Plateau tmp = plateauDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -56,6 +61,7 @@ public class PlateauController {
 	}
 	
 	@PostMapping("/plateaus")
+	@JsonView(Views.Plateau.class)
 	public ResponseEntity<Plateau> create(@Valid @RequestBody Plateau plateau) {
 		if (plateau.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -65,6 +71,7 @@ public class PlateauController {
 	}
 	
 	@PutMapping("/plateaus")
+	@JsonView(Views.Plateau.class)
 	public ResponseEntity<Plateau> update(@RequestBody Plateau plateau) {
 		if (plateau.getId() == 0) {
 			return create(plateau);

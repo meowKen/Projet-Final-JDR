@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.UtilisateurDao;
 import com.monapp.entity.Utilisateur;
+import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -30,6 +32,7 @@ public class UtilisateurController {
 	UtilisateurDao utilisateurDao;
 	
 	@GetMapping("/utilisateurs/{id}")
+	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> findOne(@PathVariable("id") Integer id){
 		Utilisateur p = utilisateurDao.findByPrimaryKey(id);
 		
@@ -42,12 +45,14 @@ public class UtilisateurController {
 	
 	
 	@GetMapping("/utilisateurs")
+	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<List<Utilisateur>> findAll(){
 		List<Utilisateur> utilisateurs = utilisateurDao.findAll();
 		return new ResponseEntity<List<Utilisateur>>(utilisateurs, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/utilisateurs/{id}")
+	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> delete(@PathVariable("id") Integer id){
 		Utilisateur tmp = utilisateurDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -59,6 +64,7 @@ public class UtilisateurController {
 	}
 	
 	@PostMapping("/utilisateurs")
+	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> create(@Valid @RequestBody Utilisateur utilisateur) {
 		if (utilisateur.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -68,6 +74,7 @@ public class UtilisateurController {
 	}
 	
 	@PutMapping("/utilisateurs")
+	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> update(@RequestBody Utilisateur utilisateur) {
 		if (utilisateur.getId() == 0) {
 			return create(utilisateur);
