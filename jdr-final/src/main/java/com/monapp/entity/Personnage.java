@@ -2,13 +2,13 @@ package com.monapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import org.springframework.stereotype.Repository;
 
 @Entity
 public class Personnage {
@@ -27,9 +27,12 @@ public class Personnage {
 	@Column
 	private int positionActuelle;
 	
-	@OneToOne 
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name ="inventaire")
 	private Inventaire inventaire;
+	
+	@OneToOne(mappedBy="personnage", fetch=FetchType.EAGER)
+	private Partie partie;
 	
 	//CONSTRUCTEUR
 	

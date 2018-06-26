@@ -27,7 +27,7 @@ public class Route {
 	
 	@Column
 	@NotNull
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(
 			name = "join_route_direction",
 			joinColumns = @JoinColumn(name="id_route"),
