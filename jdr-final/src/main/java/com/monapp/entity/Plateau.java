@@ -15,26 +15,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="plateau")
 public class Plateau {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@OneToMany(mappedBy="plateau")
+	@JsonView(Views.Plateau.class)
 	private List<Cellule> cellules = new ArrayList<Cellule>();
 	
 	@OneToMany(mappedBy="plateau")
+	@JsonView(Views.Plateau.class)
 	private List<Partie> parties;
 	
 	@Column
 	@NotNull
+	@JsonView(Views.Common.class)
 	private int largeur;
 	
 	@Column
 	@NotNull
+	@JsonView(Views.Common.class)
 	private int hauteur;
 	
 	public Plateau() {}

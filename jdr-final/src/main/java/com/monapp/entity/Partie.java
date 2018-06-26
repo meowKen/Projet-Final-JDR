@@ -14,26 +14,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="partie")
 public class Partie {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="plateau")
+	@JsonView(Views.Partie.class)
 	private Plateau plateau;
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="personnage")
+	@JsonView(Views.Partie.class)
 	private Personnage personnage;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private int positionDepart;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private int positionArrivee;
 	
 	public Partie() {}
