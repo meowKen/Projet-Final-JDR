@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name="route")
 public class Route {
@@ -23,20 +25,23 @@ public class Route {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_route")
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@Column
 	@NotNull
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "join_route_direction",
 			joinColumns = @JoinColumn(name="id_route"),
 			inverseJoinColumns=@JoinColumn(name = "id_direction")
 	)
+	@JsonView(Views.Route.class)
 	private List<Direction> directions = new ArrayList<Direction>();
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_cellule")
+	@JsonView(Views.Route.class)
 	private Cellule cellule;
 	
 	public Route() {}

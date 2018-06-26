@@ -2,12 +2,17 @@ package com.monapp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.stereotype.Repository;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table
@@ -16,19 +21,24 @@ public class Item {
 	// CREATION DES VARIABLES :
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private int id;
 
 	@Column
+	@JsonView(Views.Common.class)
 	private String nom;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private String description;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private String imageLink;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="inventaire")
+	@JsonView(Views.Item.class)
 	private Inventaire inventaire;
 	
 	// CONSTRUCTEUR

@@ -1,5 +1,6 @@
 package com.monapp.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Personnage {
@@ -16,23 +19,30 @@ public class Personnage {
 	// CREATION DES VARIABLES :
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private String nom;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private String job;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private int positionActuelle;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name ="inventaire")
+	@JsonView(Views.Inventaire.class)
 	private Inventaire inventaire;
 	
-	@OneToOne(mappedBy="personnage", fetch=FetchType.EAGER)
-	private Partie partie;
+	@ManyToOne (fetch=FetchType.EAGER)
+	@JoinColumn(name ="utilisateur")
+	@JsonView(Views.Inventaire.class)
+	private Utilisateur utilisateur;
 	
 	//CONSTRUCTEUR
 	
@@ -84,6 +94,14 @@ public class Personnage {
 
 	public void setInventaire(Inventaire inventaire) {
 		this.inventaire = inventaire;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 	
 

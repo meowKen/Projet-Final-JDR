@@ -5,12 +5,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table
@@ -20,15 +23,19 @@ public class Inventaire {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@Column
+	@JsonView(Views.Common.class)
 	private int taille;
 	
-	@OneToMany (mappedBy="inventaire")
+	@OneToMany (mappedBy="inventaire", fetch=FetchType.EAGER)
+	@JsonView(Views.Inventaire.class)
 	private List<Item> items = new ArrayList<Item>();
 	
-	@OneToOne (mappedBy = "inventaire")
+	@OneToOne (mappedBy = "inventaire", fetch=FetchType.EAGER)
+	@JsonView(Views.Inventaire.class)
 	private Personnage personnage;
 	
 	// CONSTRUCTEURS :

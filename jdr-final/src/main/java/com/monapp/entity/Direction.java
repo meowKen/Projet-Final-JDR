@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 @Entity
 @Table(name="direction")
@@ -21,14 +23,17 @@ public class Direction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_direction")
+	@JsonView(Views.Common.class)
 	private int id;
 	
 	@Column
 	@NotNull
+	@JsonView(Views.Common.class)
 	private int envoieVers;
 	
 	@Column
 	@ManyToMany(mappedBy="directions", fetch=FetchType.EAGER)
+	@JsonView(Views.Direction.class)
 	private List<Route> routes = new ArrayList<Route>();
 	
 	public Direction() {}
