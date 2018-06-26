@@ -1,6 +1,7 @@
 package com.monapp.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,10 +25,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public List<Utilisateur> findAll() {
+	public Set<Utilisateur> findAll() {
 		String querystring = "SELECT p FROM Utilisateur p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		List<Utilisateur> list = query.getResultList();
+		Set<Utilisateur> list = new HashSet<Utilisateur>(query.getResultList());
 		return list;
 	}
 
