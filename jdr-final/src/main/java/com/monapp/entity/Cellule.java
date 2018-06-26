@@ -6,6 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -30,6 +32,10 @@ public class Cellule {
 	@OneToOne(mappedBy="cellule", fetch=FetchType.EAGER)
 	@JsonView(Views.Cellule.class)
 	private Route routesPossible; 
+	
+	@ManyToOne
+    @JoinColumn(name="plateau")
+    private Plateau plateau;
 	
 	@Column
 	@JsonView(Views.Common.class)
@@ -89,6 +95,12 @@ public class Cellule {
 	}
 	public void setCoordoneeY(int coordoneeY) {
 		this.coordoneeY = coordoneeY;
+	}
+	public Plateau getPlateau() {
+		return plateau;
+	}
+	public void setPlateau(Plateau plateau) {
+		this.plateau = plateau;
 	}
 	
 	
