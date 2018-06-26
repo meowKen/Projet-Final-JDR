@@ -9,7 +9,9 @@
 	<packaging>war</packaging>
 
 	<name>jdr-final</name>
-	<description>Jdr final.</description>
+
+	<description>jdr-final</description>
+
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
