@@ -1,6 +1,7 @@
 package com.monapp.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +10,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.monapp.entity.Inventaire;
 import com.monapp.entity.Inventaire;
 
 @Transactional
@@ -25,10 +25,10 @@ public class InventaireDaoImpl implements InventaireDao {
 	}
 
 	@Override
-	public List<Inventaire> findAll() {
+	public Set<Inventaire> findAll() {
 		String querystring = "SELECT p FROM Inventaire p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		List<Inventaire> list = query.getResultList();
+		Set<Inventaire> list = new HashSet<Inventaire>(query.getResultList());
 		return list;
 	}
 

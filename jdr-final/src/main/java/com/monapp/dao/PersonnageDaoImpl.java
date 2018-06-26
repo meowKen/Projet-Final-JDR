@@ -1,6 +1,7 @@
 package com.monapp.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +10,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.monapp.entity.Personnage;
 import com.monapp.entity.Personnage;
 
 @Transactional
@@ -25,10 +25,10 @@ public class PersonnageDaoImpl implements PersonnageDao {
 	}
 
 	@Override
-	public List<Personnage> findAll() {
+	public Set<Personnage> findAll() {
 		String querystring = "SELECT p FROM Personnage p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		List<Personnage> list = query.getResultList();
+		Set<Personnage> list = new HashSet<Personnage>(query.getResultList());
 		return list;
 	}
 

@@ -1,6 +1,7 @@
 package com.monapp.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,10 +25,10 @@ public class CelluleDaoImpl implements CelluleDao{
 	}
 
 	@Override
-	public List<Cellule> findAll() {
+	public Set<Cellule> findAll() {
 		String querystring = "SELECT p FROM Cellule p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		List<Cellule> list = query.getResultList();
+		Set<Cellule> list = new HashSet<Cellule>(query.getResultList());
 		return list;
 	}
 

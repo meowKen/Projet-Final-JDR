@@ -1,6 +1,7 @@
 package com.monapp.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,10 +25,10 @@ public class PartieDaoImpl implements PartieDao{
 	}
 
 	@Override
-	public List<Partie> findAll() {
+	public Set<Partie> findAll() {
 		String querystring = "SELECT p FROM Partie p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		List<Partie> list = query.getResultList();
+		Set<Partie> list = new HashSet<Partie>(query.getResultList());
 		return list;
 	}
 
