@@ -1,7 +1,6 @@
 package com.monapp.entity;
 
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,13 +32,7 @@ public class Partie {
 	@JsonView(Views.Partie.class)
 	private Personnage personnage;
 	
-	@Column
-	@JsonView(Views.Common.class)
-	private int positionDepart;
-	
-	@Column
-	@JsonView(Views.Common.class)
-	private int positionArrivee;
+
 	
 	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name= "utilisateur")
@@ -47,11 +40,9 @@ public class Partie {
 	private Utilisateur utilisateur; 
 	
 	public Partie() {}
-	public Partie(Plateau plateau, Personnage personnage, int positionDepart, int positionArrivee) {
+	public Partie(Plateau plateau, Personnage personnage) {
 		this.plateau = plateau;
 		this.personnage = personnage;
-		this.positionDepart = positionDepart;
-		this.positionArrivee = positionArrivee;
 	}
 	public int getId() {
 		return id;
@@ -62,7 +53,7 @@ public class Partie {
 	public Plateau getPlateau() {
 		return plateau;
 	}
-	public void setPlateau(Plateau plateaus) {
+	public void setPlateau(Plateau plateau) {
 		this.plateau = plateau;
 	}
 	public Personnage getPersonnage() {
@@ -71,18 +62,7 @@ public class Partie {
 	public void setPersonnage(Personnage personnage) {
 		this.personnage = personnage;
 	}
-	public int getPositionDepart() {
-		return positionDepart;
-	}
-	public void setPositionDepart(int positionDepart) {
-		this.positionDepart = positionDepart;
-	}
-	public int getPositionArrivee() {
-		return positionArrivee;
-	}
-	public void setPositionArrivee(int positionArrivee) {
-		this.positionArrivee = positionArrivee;
-	}
+
 	
 	
 }

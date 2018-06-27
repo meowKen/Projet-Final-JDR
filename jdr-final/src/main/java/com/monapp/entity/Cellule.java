@@ -29,7 +29,8 @@ public class Cellule {
 	@JsonView(Views.Common.class)
 	private String sceneDescription;
 	
-	@OneToOne(mappedBy="cellule", fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="routesPossible")
 	@JsonView(Views.Cellule.class)
 	private Route routesPossible; 
 	
@@ -51,14 +52,19 @@ public class Cellule {
 	@JsonView(Views.Common.class)
 	private int coordoneeY;
 
+	@Column
+	@JsonView(Views.Common.class)
+	private int position;
+	
 	
 	public Cellule() {}
-	public Cellule(String sceneDescription, Route routesPossible, String imageLien, int coordonneX, int coordonneY) {
+	public Cellule(String sceneDescription, Route routesPossible, String imageLien, int coordonneX, int coordonneY, int position) {
 		this.sceneDescription = sceneDescription;
 		this.routesPossible = routesPossible;
 		this.imageLien = imageLien;
 		this.coordoneeX = coordonneX;
 		this.coordoneeY = coordonneY;
+		this.position = position;
 	}
 	public int getId() {
 		return id;
@@ -101,6 +107,12 @@ public class Cellule {
 	}
 	public void setPlateau(Plateau plateau) {
 		this.plateau = plateau;
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
 	}
 	
 	

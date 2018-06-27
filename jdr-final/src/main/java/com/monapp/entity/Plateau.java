@@ -44,13 +44,23 @@ public class Plateau {
 	@JsonView(Views.Common.class)
 	private int hauteur;
 	
+	@Column
+	@JsonView(Views.Common.class)
+	private int positionDepart;
+	
+	@Column
+	@JsonView(Views.Common.class)
+	private int positionArrivee;
+	
 	public Plateau() {}
 	
-	public Plateau(Set<Cellule> cellules, Set<Partie> parties, int largeur, int hauteur) {
+	public Plateau(Set<Cellule> cellules, Set<Partie> parties, int largeur, int hauteur, int positionDepart, int positionArrivee) {
 		this.cellules = cellules;
 		this.parties = parties;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
+		this.positionDepart = positionDepart;
+		this.positionArrivee = positionArrivee;
 	}
 
 	public int getId() {
@@ -93,7 +103,18 @@ public class Plateau {
 		this.parties = parties;
 	}
 	
-	
+	public int getPositionDepart() {
+		return positionDepart;
+	}
+	public void setPositionDepart(int positionDepart) {
+		this.positionDepart = positionDepart;
+	}
+	public int getPositionArrivee() {
+		return positionArrivee;
+	}
+	public void setPositionArrivee(int positionArrivee) {
+		this.positionArrivee = positionArrivee;
+	}
 	
 	
 	
