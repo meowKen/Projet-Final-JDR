@@ -9,12 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table(name="partie")
+@Getter
+@Setter
 public class Partie {
 
 	@Id
@@ -44,24 +47,7 @@ public class Partie {
 		this.plateau = plateau;
 		this.personnage = personnage;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public Plateau getPlateau() {
-		return plateau;
-	}
-	public void setPlateau(Plateau plateau) {
-		this.plateau = plateau;
-	}
-	public Personnage getPersonnage() {
-		return personnage;
-	}
-	public void setPersonnage(Personnage personnage) {
-		this.personnage = personnage;
-	}
+	
 
 	
 	

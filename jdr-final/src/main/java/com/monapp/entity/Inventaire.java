@@ -11,16 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table
+@Getter
+@Setter
 public class Inventaire {
 
-	//CREATION DES VARIABLES :
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonView(Views.Common.class)
@@ -38,7 +39,6 @@ public class Inventaire {
 	@JsonView(Views.Inventaire.class)
 	private Personnage personnage;
 	
-	// CONSTRUCTEURS :
 	
 	private Inventaire() {}
 	
@@ -46,31 +46,7 @@ public class Inventaire {
 		this.taille = taille;
 	}
 
-	//GETTER ET SETTER :
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getTaille() {
-		return taille;
-	}
-
-	public void setTaille(int taille) {
-		this.taille = taille;
-	}
-
-	public Set<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(Set<Item> items) {
-		this.items = items;
-	}
 	
 	
 }
