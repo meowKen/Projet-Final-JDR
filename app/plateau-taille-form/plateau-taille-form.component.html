@@ -1,0 +1,15 @@
+<form [formGroup]="plateauForm" (ngSubmit)="submitForm()">
+  <div class="form-row">
+    <div class="form-group col-sm-6">
+      <label>largeur: </label>
+      <input class="form-control" type="text" [formControl]="largeur">
+    </div>
+    <div class="form-group col-sm-6">
+      <label>longueur: </label>
+      <input class="form-control" type="text"[formControl]="hauteur">
+    </div>
+  </div>
+  <div class="row">
+    <button class="btn btn-success" type="submit" style="margin: 16px">Valider</button>
+  </div>
+</form>
