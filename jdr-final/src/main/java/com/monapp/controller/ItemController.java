@@ -1,6 +1,7 @@
 package com.monapp.controller;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -18,10 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.ItemDao;
 import com.monapp.entity.Item;
-import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -31,7 +30,6 @@ public class ItemController {
 	ItemDao itemDao;
 	
 	@GetMapping("/items/{id}")
-	@JsonView(Views.Item.class)
 	public ResponseEntity<Item> findOne(@PathVariable("id") Integer id){
 		Item p = itemDao.findByPrimaryKey(id);
 		
@@ -44,14 +42,12 @@ public class ItemController {
 	
 	
 	@GetMapping("/items")
-	@JsonView(Views.Item.class)
-	public ResponseEntity<Set<Item>> findAll(){
-		Set<Item> items = itemDao.findAll();
-		return new ResponseEntity<Set<Item>>(items, HttpStatus.OK);
+	public ResponseEntity<List<Item>> findAll(){
+		List<Item> items = itemDao.findAll();
+		return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/items/{id}")
-	@JsonView(Views.Item.class)
 	public ResponseEntity<Item> delete(@PathVariable("id") Integer id){
 		Item tmp = itemDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -63,7 +59,6 @@ public class ItemController {
 	}
 	
 	@PostMapping("/items")
-	@JsonView(Views.Item.class)
 	public ResponseEntity<Item> create(@Valid @RequestBody Item item) {
 		if (item.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -73,7 +68,6 @@ public class ItemController {
 	}
 	
 	@PutMapping("/items")
-	@JsonView(Views.Item.class)
 	public ResponseEntity<Item> update(@RequestBody Item item) {
 		if (item.getId() == 0) {
 			return create(item);

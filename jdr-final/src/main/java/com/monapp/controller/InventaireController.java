@@ -1,6 +1,7 @@
 package com.monapp.controller;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -18,10 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.InventaireDao;
 import com.monapp.entity.Inventaire;
-import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -31,7 +30,6 @@ public class InventaireController {
 	InventaireDao inventaireDao;
 	
 	@GetMapping("/inventaires/{id}")
-	@JsonView(Views.Inventaire.class)
 	public ResponseEntity<Inventaire> findOne(@PathVariable("id") Integer id){
 		Inventaire p = inventaireDao.findByPrimaryKey(id);
 		
@@ -44,14 +42,12 @@ public class InventaireController {
 
 	
 	@GetMapping("/inventaires")
-	@JsonView(Views.Inventaire.class)
-	public ResponseEntity<Set<Inventaire>> findAll(){
-		Set<Inventaire> inventaires = inventaireDao.findAll();
-		return new ResponseEntity<Set<Inventaire>>(inventaires, HttpStatus.OK);
+	public ResponseEntity<List<Inventaire>> findAll(){
+		List<Inventaire> inventaires = inventaireDao.findAll();
+		return new ResponseEntity<List<Inventaire>>(inventaires, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/inventaires/{id}")
-	@JsonView(Views.Inventaire.class)
 	public ResponseEntity<Inventaire> delete(@PathVariable("id") Integer id){
 		Inventaire tmp = inventaireDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -63,7 +59,6 @@ public class InventaireController {
 	}
 	
 	@PostMapping("/inventaires")
-	@JsonView(Views.Inventaire.class)
 	public ResponseEntity<Inventaire> create(@Valid @RequestBody Inventaire inventaire) {
 		if (inventaire.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -73,7 +68,6 @@ public class InventaireController {
 	}
 	
 	@PutMapping("/inventaires")
-	@JsonView(Views.Inventaire.class)
 	public ResponseEntity<Inventaire> update(@RequestBody Inventaire inventaire) {
 		if (inventaire.getId() == 0) {
 			return create(inventaire);

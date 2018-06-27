@@ -1,7 +1,6 @@
 package com.monapp.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.monapp.entity.Item;
 import com.monapp.entity.Item;
 
 @Transactional
@@ -25,10 +25,10 @@ public class ItemDaoImpl implements ItemDao {
 	}
 
 	@Override
-	public Set<Item> findAll() {
+	public List<Item> findAll() {
 		String querystring = "SELECT p FROM Item p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		Set<Item> list = new HashSet<Item>(query.getResultList());
+		List<Item> list = query.getResultList();
 		return list;
 	}
 

@@ -1,7 +1,6 @@
 package com.monapp.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,10 +24,10 @@ public class RouteDaoImpl implements RouteDao{
 	}
 
 	@Override
-	public Set<Route> findAll() {
+	public List<Route> findAll() {
 		String querystring = "SELECT p FROM Route p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		Set<Route> list = new HashSet<Route>(query.getResultList());
+		List<Route> list = query.getResultList();
 		return list;
 	}
 

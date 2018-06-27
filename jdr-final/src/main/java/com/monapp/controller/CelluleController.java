@@ -1,6 +1,6 @@
 package com.monapp.controller;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.CelluleDao;
 import com.monapp.entity.Cellule;
-import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -30,7 +28,6 @@ public class CelluleController {
 	CelluleDao celluleDao;
 	
 	@GetMapping("/cellules/{id}")
-	@JsonView(Views.Cellule.class)
 	public ResponseEntity<Cellule> findOne(@PathVariable("id") Integer id){
 		Cellule p = celluleDao.findByPrimaryKey(id);
 		
@@ -42,14 +39,12 @@ public class CelluleController {
 	}
 	
 	@GetMapping("/cellules")
-	@JsonView(Views.Cellule.class)
-	public ResponseEntity<Set<Cellule>> findAll(){
-		Set<Cellule> cellules = celluleDao.findAll();
-		return new ResponseEntity<Set<Cellule>>(cellules, HttpStatus.OK);
+	public ResponseEntity<List<Cellule>> findAll(){
+		List<Cellule> cellules = celluleDao.findAll();
+		return new ResponseEntity<List<Cellule>>(cellules, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/cellules/{id}")
-	@JsonView(Views.Cellule.class)
 	public ResponseEntity<Cellule> delete(@PathVariable("id") Integer id){
 		Cellule tmp = celluleDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -61,7 +56,6 @@ public class CelluleController {
 	}
 	
 	@PostMapping("/cellules")
-	@JsonView(Views.Cellule.class)
 	public ResponseEntity<Cellule> create(@Valid @RequestBody Cellule cellule) {
 		if (cellule.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -71,7 +65,6 @@ public class CelluleController {
 	}
 	
 	@PutMapping("/cellules")
-	@JsonView(Views.Cellule.class)
 	public ResponseEntity<Cellule> update(@RequestBody Cellule cellule) {
 		if (cellule.getId() == 0) {
 			return create(cellule);
@@ -85,12 +78,4 @@ public class CelluleController {
     public ResponseEntity<Object> errors(){
     		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
-    
-    @GetMapping("/cellules/plateau/{id}")
-    @JsonView(Views.Cellule.class)
-    public ResponseEntity<Set<Cellule>> findByPlateau(@PathVariable("id") Integer id) {
-    	Set<Cellule> cellules = celluleDao.findByPlateau(id);
-		return new ResponseEntity<Set<Cellule>>(cellules, HttpStatus.OK);
-    }
-    
 }

@@ -1,6 +1,7 @@
 package com.monapp.controller;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -18,10 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.PersonnageDao;
 import com.monapp.entity.Personnage;
-import com.monapp.entity.Views;
 
 
 @RestController
@@ -32,7 +31,6 @@ public class PersonnageController {
 	PersonnageDao personnageDao;
 	
 	@GetMapping("/personnages/{id}")
-	@JsonView(Views.Personnage.class)
 	public ResponseEntity<Personnage> findOne(@PathVariable("id") Integer id){
 		Personnage p = personnageDao.findByPrimaryKey(id);
 		
@@ -45,14 +43,12 @@ public class PersonnageController {
 	
 	
 	@GetMapping("/personnages")
-	@JsonView(Views.Personnage.class)
-	public ResponseEntity<Set<Personnage>> findAll(){
-		Set<Personnage> personnages = personnageDao.findAll();
-		return new ResponseEntity<Set<Personnage>>(personnages, HttpStatus.OK);
+	public ResponseEntity<List<Personnage>> findAll(){
+		List<Personnage> personnages = personnageDao.findAll();
+		return new ResponseEntity<List<Personnage>>(personnages, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/personnages/{id}")
-	@JsonView(Views.Personnage.class)
 	public ResponseEntity<Personnage> delete(@PathVariable("id") Integer id){
 		Personnage tmp = personnageDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -64,7 +60,6 @@ public class PersonnageController {
 	}
 	
 	@PostMapping("/personnages")
-	@JsonView(Views.Personnage.class)
 	public ResponseEntity<Personnage> create(@Valid @RequestBody Personnage personnage) {
 		if (personnage.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,7 +69,6 @@ public class PersonnageController {
 	}
 	
 	@PutMapping("/personnages")
-	@JsonView(Views.Personnage.class)
 	public ResponseEntity<Personnage> update(@RequestBody Personnage personnage) {
 		if (personnage.getId() == 0) {
 			return create(personnage);

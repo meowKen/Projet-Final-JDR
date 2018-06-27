@@ -1,7 +1,7 @@
 package com.monapp.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class Direction {
 	@Column
 	@ManyToMany(mappedBy="directions", fetch=FetchType.EAGER)
 	@JsonView(Views.Direction.class)
-	private Set<Route> routes = new HashSet<Route>();
+	private List<Route> routes = new ArrayList<Route>();
 	
 	public Direction() {}
 	public Direction(int envoieVers) {

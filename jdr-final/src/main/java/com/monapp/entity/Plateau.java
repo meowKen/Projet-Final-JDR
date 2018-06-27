@@ -1,7 +1,7 @@
 package com.monapp.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,38 +15,31 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 @Entity
 @Table(name="plateau")
 public class Plateau {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JsonView(Views.Common.class)
 	private int id;
 	
-	@OneToMany(mappedBy="plateau", fetch=FetchType.EAGER)
-	@JsonView(Views.Plateau.class)
-	private Set<Cellule> cellules = new HashSet<Cellule>();
+	@OneToMany(mappedBy="plateau")
+	private List<Cellule> cellules = new ArrayList<Cellule>();
 	
-	@OneToMany(mappedBy="plateau", fetch=FetchType.EAGER)
-	@JsonView(Views.Plateau.class)
-	private Set<Partie> parties;
+	@OneToMany(mappedBy="plateau")
+	private List<Partie> parties;
 	
 	@Column
 	@NotNull
-	@JsonView(Views.Common.class)
 	private int largeur;
 	
 	@Column
 	@NotNull
-	@JsonView(Views.Common.class)
 	private int hauteur;
 	
 	public Plateau() {}
 	
-	public Plateau(Set<Cellule> cellules, Set<Partie> parties, int largeur, int hauteur) {
+	public Plateau(List<Cellule> cellules, List<Partie> parties, int largeur, int hauteur) {
 		this.cellules = cellules;
 		this.parties = parties;
 		this.largeur = largeur;
@@ -61,11 +54,11 @@ public class Plateau {
 		this.id = id;
 	}
 
-	public Set<Cellule> getCellules() {
+	public List<Cellule> getCellules() {
 		return cellules;
 	}
 
-	public void setCellules(Set<Cellule> cellules) {
+	public void setCellules(List<Cellule> cellules) {
 		this.cellules = cellules;
 	}
 
@@ -85,11 +78,11 @@ public class Plateau {
 		this.hauteur = hauteur;
 	}
 
-	public Set<Partie> getParties() {
+	public List<Partie> getParties() {
 		return parties;
 	}
 
-	public void setParties(Set<Partie> parties) {
+	public void setParties(List<Partie> parties) {
 		this.parties = parties;
 	}
 	

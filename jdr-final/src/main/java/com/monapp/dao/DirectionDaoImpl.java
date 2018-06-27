@@ -1,7 +1,6 @@
 package com.monapp.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,10 +24,10 @@ public class DirectionDaoImpl implements DirectionDao{
 	}
 
 	@Override
-	public Set<Direction> findAll() {
+	public List<Direction> findAll() {
 		String querystring = "SELECT p FROM Direction p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		Set<Direction> list = new HashSet<Direction>(query.getResultList());
+		List<Direction> list = query.getResultList();
 		return list;
 	}
 

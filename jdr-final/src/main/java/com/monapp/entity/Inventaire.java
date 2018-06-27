@@ -1,7 +1,7 @@
 package com.monapp.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ public class Inventaire {
 	
 	@OneToMany (mappedBy="inventaire", fetch=FetchType.EAGER)
 	@JsonView(Views.Inventaire.class)
-	private Set<Item> items = new HashSet<Item>();
+	private List<Item> items = new ArrayList<Item>();
 	
 	@OneToOne (mappedBy = "inventaire", fetch=FetchType.EAGER)
 	@JsonView(Views.Inventaire.class)
@@ -64,11 +64,11 @@ public class Inventaire {
 		this.taille = taille;
 	}
 
-	public Set<Item> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<Item> items) {
+	public void setItems(List<Item> items) {
 		this.items = items;
 	}
 	

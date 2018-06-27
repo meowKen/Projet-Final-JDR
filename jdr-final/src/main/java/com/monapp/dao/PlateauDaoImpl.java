@@ -1,7 +1,6 @@
 package com.monapp.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,10 +24,10 @@ public class PlateauDaoImpl implements PlateauDao{
 	}
 
 	@Override
-	public Set<Plateau> findAll() {
+	public List<Plateau> findAll() {
 		String querystring = "SELECT p FROM Plateau p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		Set<Plateau> list = new HashSet<Plateau>(query.getResultList());
+		List<Plateau> list = query.getResultList();
 		return list;
 	}
 

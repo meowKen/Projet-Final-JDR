@@ -1,7 +1,7 @@
 package com.monapp.controller;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.UtilisateurDao;
 import com.monapp.entity.Utilisateur;
-import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -32,7 +30,6 @@ public class UtilisateurController {
 	UtilisateurDao utilisateurDao;
 	
 	@GetMapping("/utilisateurs/{id}")
-	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> findOne(@PathVariable("id") Integer id){
 		Utilisateur p = utilisateurDao.findByPrimaryKey(id);
 		
@@ -45,14 +42,12 @@ public class UtilisateurController {
 	
 	
 	@GetMapping("/utilisateurs")
-	@JsonView(Views.Utilisateur.class)
-	public ResponseEntity<Set<Utilisateur>> findAll(){
-		Set<Utilisateur> utilisateurs = utilisateurDao.findAll();
-		return new ResponseEntity<Set<Utilisateur>>(utilisateurs, HttpStatus.OK);
+	public ResponseEntity<List<Utilisateur>> findAll(){
+		List<Utilisateur> utilisateurs = utilisateurDao.findAll();
+		return new ResponseEntity<List<Utilisateur>>(utilisateurs, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/utilisateurs/{id}")
-	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> delete(@PathVariable("id") Integer id){
 		Utilisateur tmp = utilisateurDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -64,7 +59,6 @@ public class UtilisateurController {
 	}
 	
 	@PostMapping("/utilisateurs")
-	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> create(@Valid @RequestBody Utilisateur utilisateur) {
 		if (utilisateur.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,7 +68,6 @@ public class UtilisateurController {
 	}
 	
 	@PutMapping("/utilisateurs")
-	@JsonView(Views.Utilisateur.class)
 	public ResponseEntity<Utilisateur> update(@RequestBody Utilisateur utilisateur) {
 		if (utilisateur.getId() == 0) {
 			return create(utilisateur);
@@ -85,8 +78,7 @@ public class UtilisateurController {
 	}
 	
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> errors( Exception ex){
-    		ex.printStackTrace();
+    public ResponseEntity<Object> errors(){
     		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
 }

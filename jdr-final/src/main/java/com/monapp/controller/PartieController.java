@@ -1,6 +1,6 @@
 package com.monapp.controller;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.monapp.dao.PartieDao;
 import com.monapp.entity.Partie;
-import com.monapp.entity.Views;
 
 @RestController
 @CrossOrigin
@@ -30,7 +28,6 @@ public class PartieController {
 	PartieDao partieDao;
 	
 	@GetMapping("/parties/{id}")
-	@JsonView(Views.Partie.class)
 	public ResponseEntity<Partie> findOne(@PathVariable("id") Integer id){
 		Partie p = partieDao.findByPrimaryKey(id);
 		
@@ -42,14 +39,12 @@ public class PartieController {
 	}
 	
 	@GetMapping("/parties")
-	@JsonView(Views.Partie.class)
-	public ResponseEntity<Set<Partie>> findAll(){
-		Set<Partie> parties = partieDao.findAll();
-		return new ResponseEntity<Set<Partie>>(parties, HttpStatus.OK);
+	public ResponseEntity<List<Partie>> findAll(){
+		List<Partie> parties = partieDao.findAll();
+		return new ResponseEntity<List<Partie>>(parties, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/parties/{id}")
-	@JsonView(Views.Partie.class)
 	public ResponseEntity<Partie> delete(@PathVariable("id") Integer id){
 		Partie tmp = partieDao.findByPrimaryKey(id);
 		if (tmp == null) {
@@ -61,7 +56,6 @@ public class PartieController {
 	}
 	
 	@PostMapping("/parties")
-	@JsonView(Views.Partie.class)
 	public ResponseEntity<Partie> create(@Valid @RequestBody Partie partie) {
 		if (partie.getId() > 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -71,7 +65,6 @@ public class PartieController {
 	}
 	
 	@PutMapping("/parties")
-	@JsonView(Views.Partie.class)
 	public ResponseEntity<Partie> update(@RequestBody Partie partie) {
 		if (partie.getId() == 0) {
 			return create(partie);

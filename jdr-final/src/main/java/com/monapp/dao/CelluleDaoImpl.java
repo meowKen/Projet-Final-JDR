@@ -1,7 +1,6 @@
 package com.monapp.dao;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,10 +24,10 @@ public class CelluleDaoImpl implements CelluleDao{
 	}
 
 	@Override
-	public Set<Cellule> findAll() {
+	public List<Cellule> findAll() {
 		String querystring = "SELECT p FROM Cellule p ORDER BY id";
 		Query query = em.createQuery(querystring);
-		Set<Cellule> list = new HashSet<Cellule>(query.getResultList());
+		List<Cellule> list = query.getResultList();
 		return list;
 	}
 
@@ -47,14 +46,6 @@ public class CelluleDaoImpl implements CelluleDao{
 	@Override
 	public Cellule update(Cellule entity) {
 		return em.merge(entity);
-	}
-
-	@Override
-	public Set<Cellule> findByPlateau(int id_plateau) {
-		String querystring = "SELECT p FROM Cellule p WHERE plateau= "+ id_plateau + "ORDER BY id";
-		Query query = em.createQuery(querystring);
-		Set<Cellule> list = new HashSet<Cellule>(query.getResultList());
-		return list;
 	}
 
 
