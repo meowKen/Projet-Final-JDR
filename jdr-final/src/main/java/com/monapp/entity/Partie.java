@@ -1,7 +1,5 @@
 package com.monapp.entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +40,11 @@ public class Partie {
 	@Column
 	@JsonView(Views.Common.class)
 	private int positionArrivee;
+	
+	@ManyToOne (fetch=FetchType.EAGER)
+	@JoinColumn(name= "utilisateur")
+	@JsonView(Views.Common.class)
+	private Utilisateur utilisateur; 
 	
 	public Partie() {}
 	public Partie(Plateau plateau, Personnage personnage, int positionDepart, int positionArrivee) {

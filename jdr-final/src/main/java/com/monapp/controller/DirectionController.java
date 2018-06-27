@@ -1,6 +1,6 @@
 package com.monapp.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -43,9 +43,9 @@ public class DirectionController {
 	
 	@GetMapping("/directions")
 	@JsonView(Views.Direction.class)
-	public ResponseEntity<List<Direction>> findAll(){
-		List<Direction> directions = directionDao.findAll();
-		return new ResponseEntity<List<Direction>>(directions, HttpStatus.OK);
+	public ResponseEntity<Set<Direction>> findAll(){
+		Set<Direction> directions = directionDao.findAll();
+		return new ResponseEntity<Set<Direction>>(directions, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/directions/{id}")

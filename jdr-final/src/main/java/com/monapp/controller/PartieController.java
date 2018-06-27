@@ -1,6 +1,6 @@
 package com.monapp.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -43,9 +43,9 @@ public class PartieController {
 	
 	@GetMapping("/parties")
 	@JsonView(Views.Partie.class)
-	public ResponseEntity<List<Partie>> findAll(){
-		List<Partie> parties = partieDao.findAll();
-		return new ResponseEntity<List<Partie>>(parties, HttpStatus.OK);
+	public ResponseEntity<Set<Partie>> findAll(){
+		Set<Partie> parties = partieDao.findAll();
+		return new ResponseEntity<Set<Partie>>(parties, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/parties/{id}")

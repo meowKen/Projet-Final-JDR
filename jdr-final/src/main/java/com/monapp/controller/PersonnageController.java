@@ -1,7 +1,6 @@
 package com.monapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -47,9 +46,9 @@ public class PersonnageController {
 	
 	@GetMapping("/personnages")
 	@JsonView(Views.Personnage.class)
-	public ResponseEntity<List<Personnage>> findAll(){
-		List<Personnage> personnages = personnageDao.findAll();
-		return new ResponseEntity<List<Personnage>>(personnages, HttpStatus.OK);
+	public ResponseEntity<Set<Personnage>> findAll(){
+		Set<Personnage> personnages = personnageDao.findAll();
+		return new ResponseEntity<Set<Personnage>>(personnages, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/personnages/{id}")
