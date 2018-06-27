@@ -1,5 +1,6 @@
 package com.monapp.controller;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.monapp.dao.CelluleDao;
 import com.monapp.dao.PlateauDao;
+import com.monapp.entity.Cellule;
 import com.monapp.entity.Plateau;
 import com.monapp.entity.Views;
 
@@ -28,6 +31,9 @@ public class PlateauController {
 	
 	@Autowired
 	PlateauDao plateauDao;
+	
+	@Autowired
+	CelluleDao celluleDao;
 	
 	@GetMapping("/plateaus/{id}")
 	@JsonView(Views.Plateau.class)
@@ -81,8 +87,25 @@ public class PlateauController {
 		return new ResponseEntity<Plateau>(plateau, HttpStatus.OK);
 	}
 	
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> errors(){
-    		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+//    @ExceptionHandler({ Exception.class })
+//    public ResponseEntity<Object> errors(){
+//    		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+//    }
+    
+    @PostMapping("/plateaus/{x}/{y}")
+    @JsonView(Views.Plateau.class)
+    public ResponseEntity<Plateau> generatePlateau(@PathVariable("x") Integer x, @PathVariable("y") Integer y) {
+    	Set<Cellule> cellules = new HashSet<Cellule>();
+    	for (int i = 0 ; i<x ; i++) {
+    		for (int j = 0; j<y; j++) {
+    			Cellule c = new Cellule("scene n"+i+"-"+j , null, "", i,j, i*y+j);
+    			cellules.add(c);
+    			celluleDao.save(c);
+    		}
+    	}
+    	Plateau plateau = new Plateau(cellules,null,x,y,0, 0);
+    	plateauDao.save(plateau);
+    	return new ResponseEntity<Plateau>(plateau,HttpStatus.CREATED);
     }
+    
 }

@@ -40,8 +40,7 @@ public class Route {
 	@JsonView(Views.Route.class)
 	private Set<Direction> directions = new HashSet<Direction>();
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_cellule")
+	@OneToOne(mappedBy ="routesPossible", fetch=FetchType.EAGER)
 	@JsonView(Views.Route.class)
 	private Cellule cellule;
 	
