@@ -49,5 +49,13 @@ public class CelluleDaoImpl implements CelluleDao{
 		return em.merge(entity);
 	}
 
+	@Override
+	public Set<Cellule> findByPlateau(int id_plateau) {
+		String querystring = "SELECT p FROM Cellule p WHERE plateau= "+ id_plateau + "ORDER BY id";
+		Query query = em.createQuery(querystring);
+		Set<Cellule> list = new HashSet<Cellule>(query.getResultList());
+		return list;
+	}
+
 
 }
