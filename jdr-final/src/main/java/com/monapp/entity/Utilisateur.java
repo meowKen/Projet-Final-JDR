@@ -1,7 +1,9 @@
 package com.monapp.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -37,14 +37,13 @@ public class Utilisateur {
 	@JsonView(Views.Common.class)
 	private String mdp;
 	
-//	@ManyToOne
-//	@JsonView(Views.Utilisateur.class)
-//	@JoinColumn(name="parties", fetch=FetchType.EAGER)
-//	private List<Partie> parties = new ArrayList<Partie>();
+	@OneToMany(mappedBy ="utilisateur", fetch=FetchType.EAGER)
+	@JsonView(Views.Utilisateur.class)
+	private Set<Partie> parties = new HashSet<Partie>();
 	
 	@OneToMany(mappedBy="utilisateur", fetch=FetchType.EAGER)
 	@JsonView(Views.Utilisateur.class)
-	private List<Personnage> personnages = new ArrayList<Personnage>();
+	private Set<Personnage> personnages = new HashSet<Personnage>();
 	
 	
 	// CONSTRUCTEUR
@@ -92,19 +91,19 @@ public class Utilisateur {
 		this.mdp = mdp;
 	}
 
-//	public List<Partie> getParties() {
-//		return parties;
-//	}
-//
-//	public void setParties(List<Partie> parties) {
-//		this.parties = parties;
-//	}
+	public Set<Partie> getParties() {
+		return parties;
+	}
 
-	public List<Personnage> getPersonnages() {
+	public void setParties(Set<Partie> parties) {
+		this.parties = parties;
+	}
+
+	public Set<Personnage> getPersonnages() {
 		return personnages;
 	}
 
-	public void setPersonnages(List<Personnage> personnages) {
+	public void setPersonnages(Set<Personnage> personnages) {
 		this.personnages = personnages;
 	}
 	

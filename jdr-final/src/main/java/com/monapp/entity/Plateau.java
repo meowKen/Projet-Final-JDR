@@ -1,7 +1,7 @@
 package com.monapp.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,13 +26,13 @@ public class Plateau {
 	@JsonView(Views.Common.class)
 	private int id;
 	
-	@OneToMany(mappedBy="plateau")
+	@OneToMany(mappedBy="plateau", fetch=FetchType.EAGER)
 	@JsonView(Views.Plateau.class)
-	private List<Cellule> cellules = new ArrayList<Cellule>();
+	private Set<Cellule> cellules = new HashSet<Cellule>();
 	
-	@OneToMany(mappedBy="plateau")
+	@OneToMany(mappedBy="plateau", fetch=FetchType.EAGER)
 	@JsonView(Views.Plateau.class)
-	private List<Partie> parties;
+	private Set<Partie> parties;
 	
 	@Column
 	@NotNull
@@ -46,7 +46,7 @@ public class Plateau {
 	
 	public Plateau() {}
 	
-	public Plateau(List<Cellule> cellules, List<Partie> parties, int largeur, int hauteur) {
+	public Plateau(Set<Cellule> cellules, Set<Partie> parties, int largeur, int hauteur) {
 		this.cellules = cellules;
 		this.parties = parties;
 		this.largeur = largeur;
@@ -61,11 +61,11 @@ public class Plateau {
 		this.id = id;
 	}
 
-	public List<Cellule> getCellules() {
+	public Set<Cellule> getCellules() {
 		return cellules;
 	}
 
-	public void setCellules(List<Cellule> cellules) {
+	public void setCellules(Set<Cellule> cellules) {
 		this.cellules = cellules;
 	}
 
@@ -85,11 +85,11 @@ public class Plateau {
 		this.hauteur = hauteur;
 	}
 
-	public List<Partie> getParties() {
+	public Set<Partie> getParties() {
 		return parties;
 	}
 
-	public void setParties(List<Partie> parties) {
+	public void setParties(Set<Partie> parties) {
 		this.parties = parties;
 	}
 	

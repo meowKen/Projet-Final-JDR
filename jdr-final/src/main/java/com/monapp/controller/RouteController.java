@@ -1,6 +1,6 @@
 package com.monapp.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -43,9 +43,9 @@ public class RouteController {
 	
 	@GetMapping("/routes")
 	@JsonView(Views.Route.class)
-	public ResponseEntity<List<Route>> findAll(){
-		List<Route> routes = routeDao.findAll();
-		return new ResponseEntity<List<Route>>(routes, HttpStatus.OK);
+	public ResponseEntity<Set<Route>> findAll(){
+		Set<Route> routes = routeDao.findAll();
+		return new ResponseEntity<Set<Route>>(routes, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/routes/{id}")

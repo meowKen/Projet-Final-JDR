@@ -1,7 +1,8 @@
 package com.monapp.entity;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +38,7 @@ public class Route {
 			inverseJoinColumns=@JoinColumn(name = "id_direction")
 	)
 	@JsonView(Views.Route.class)
-	private List<Direction> directions = new ArrayList<Direction>();
+	private Set<Direction> directions = new HashSet<Direction>();
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_cellule")
@@ -45,7 +46,7 @@ public class Route {
 	private Cellule cellule;
 	
 	public Route() {}
-	public Route(List<Direction> directions) {
+	public Route(Set<Direction> directions) {
 		this.directions = directions;
 	}
 	public int getId() {
@@ -54,10 +55,10 @@ public class Route {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public List<Direction> getDirections() {
+	public Set<Direction> getDirections() {
 		return directions;
 	}
-	public void setDirections(List<Direction> directions) {
+	public void setDirections(Set<Direction> directions) {
 		this.directions = directions;
 	}
 	

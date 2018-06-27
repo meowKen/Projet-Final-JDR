@@ -1,6 +1,6 @@
 package com.monapp.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -43,9 +43,9 @@ public class PlateauController {
 	
 	@GetMapping("/plateaus")
 	@JsonView(Views.Plateau.class)
-	public ResponseEntity<List<Plateau>> findAll(){
-		List<Plateau> plateaus = plateauDao.findAll();
-		return new ResponseEntity<List<Plateau>>(plateaus, HttpStatus.OK);
+	public ResponseEntity<Set<Plateau>> findAll(){
+		Set<Plateau> plateaus = plateauDao.findAll();
+		return new ResponseEntity<Set<Plateau>>(plateaus, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/plateaus/{id}")

@@ -1,7 +1,6 @@
 package com.monapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -46,9 +45,9 @@ public class InventaireController {
 	
 	@GetMapping("/inventaires")
 	@JsonView(Views.Inventaire.class)
-	public ResponseEntity<List<Inventaire>> findAll(){
-		List<Inventaire> inventaires = inventaireDao.findAll();
-		return new ResponseEntity<List<Inventaire>>(inventaires, HttpStatus.OK);
+	public ResponseEntity<Set<Inventaire>> findAll(){
+		Set<Inventaire> inventaires = inventaireDao.findAll();
+		return new ResponseEntity<Set<Inventaire>>(inventaires, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/inventaires/{id}")

@@ -1,7 +1,7 @@
 package com.monapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -46,9 +46,9 @@ public class UtilisateurController {
 	
 	@GetMapping("/utilisateurs")
 	@JsonView(Views.Utilisateur.class)
-	public ResponseEntity<List<Utilisateur>> findAll(){
-		List<Utilisateur> utilisateurs = utilisateurDao.findAll();
-		return new ResponseEntity<List<Utilisateur>>(utilisateurs, HttpStatus.OK);
+	public ResponseEntity<Set<Utilisateur>> findAll(){
+		Set<Utilisateur> utilisateurs = utilisateurDao.findAll();
+		return new ResponseEntity<Set<Utilisateur>>(utilisateurs, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/utilisateurs/{id}")
@@ -85,7 +85,8 @@ public class UtilisateurController {
 	}
 	
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> errors(){
+    public ResponseEntity<Object> errors( Exception ex){
+    		ex.printStackTrace();
     		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
 }
