@@ -85,4 +85,12 @@ public class CelluleController {
     public ResponseEntity<Object> errors(){
     		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
+    
+    @GetMapping("/cellules/plateau/{id}")
+    @JsonView(Views.Cellule.class)
+    public ResponseEntity<Set<Cellule>> findByPlateau(@PathVariable("id") Integer id) {
+    	Set<Cellule> cellules = celluleDao.findByPlateau(id);
+		return new ResponseEntity<Set<Cellule>>(cellules, HttpStatus.OK);
+    }
+    
 }
