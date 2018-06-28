@@ -9,7 +9,7 @@ export class RouteService {
   constructor(private http: HttpClient) {
   }
 
-  baseUrl = 'http://localhost:8090/jdr/routes';
+  baseUrl = 'http://localhost:8090/jdr/routes/';
 
   //readAll / findAll
   list(): Observable<any> {
