@@ -1,0 +1,8 @@
+<div class="container">
+  <ul class="list-group" *ngFor="let o of routeList">
+    <li class="list-group-item list-group-item-dark">{{o.sceneDescription}}</li>
+    <li class="list-group-item">Les routes: </li>
+    <li class="list-group-item" *ngFor="let p of o.directions">{{p.envoieVers}}</li>
+  </ul>
+</div>
+
