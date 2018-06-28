@@ -13,7 +13,12 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Personnage {
 
 	// CREATION DES VARIABLES :
@@ -54,55 +59,6 @@ public class Personnage {
 		this.positionActuelle = positionActuelle;
 	}
 
-	// GETTER ET SETTER :
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(String job) {
-		this.job = job;
-	}
-
-	public int getPositionActuelle() {
-		return positionActuelle;
-	}
-
-	public void setPositionActuelle(int positionActuelle) {
-		this.positionActuelle = positionActuelle;
-	}
-
-	public Inventaire getInventaire() {
-		return inventaire;
-	}
-
-	public void setInventaire(Inventaire inventaire) {
-		this.inventaire = inventaire;
-	}
-
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 	
 
 	

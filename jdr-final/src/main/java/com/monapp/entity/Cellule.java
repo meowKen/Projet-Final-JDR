@@ -9,20 +9,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table(name="cellule")
+@Setter
+@Getter
 public class Cellule {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_cellule")
-	@JsonView(Views.Common.class)
-	private int id;
+	@JsonView(Views.Common.class)private int id;
 	
 	@Column
 	@NotNull
@@ -66,54 +68,7 @@ public class Cellule {
 		this.coordoneeY = coordonneY;
 		this.position = position;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getSceneDescription() {
-		return sceneDescription;
-	}
-	public void setSceneDescription(String sceneDescription) {
-		this.sceneDescription = sceneDescription;
-	}
-	public Route getRoutesPossible() {
-		return routesPossible;
-	}
-	public void setRoutesPossible(Route routesPossible) {
-		this.routesPossible = routesPossible;
-	}
-	public String getImageLien() {
-		return imageLien;
-	}
-	public void setImageLien(String imageLien) {
-		this.imageLien = imageLien;
-	}
-	public int getCoordoneeX() {
-		return coordoneeX;
-	}
-	public void setCoordoneeX(int coordoneeX) {
-		this.coordoneeX = coordoneeX;
-	}
-	public int getCoordoneeY() {
-		return coordoneeY;
-	}
-	public void setCoordoneeY(int coordoneeY) {
-		this.coordoneeY = coordoneeY;
-	}
-	public Plateau getPlateau() {
-		return plateau;
-	}
-	public void setPlateau(Plateau plateau) {
-		this.plateau = plateau;
-	}
-	public int getPosition() {
-		return position;
-	}
-	public void setPosition(int position) {
-		this.position = position;
-	}
+	
 	
 	
 }

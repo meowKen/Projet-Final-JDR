@@ -8,14 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table
+@Getter
+@Setter
 public class Item {
 
 	// CREATION DES VARIABLES :
@@ -50,38 +51,7 @@ public class Item {
 		this.imageLink = imageLink;
 	}
 	
-	// Getter et Setter
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getImageLink() {
-		return imageLink;
-	}
-	public void setImageLink(String imageLink) {
-		this.imageLink = imageLink;
-	}
-	public Inventaire getInventaire() {
-		return inventaire;
-	}
-	public void setInventaire(Inventaire inventaire) {
-		this.inventaire = inventaire;
-	}
 	
 	
 	

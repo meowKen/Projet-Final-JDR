@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -92,20 +91,24 @@ public class PlateauController {
 //    		return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 //    }
     
-    @PostMapping("/plateaus/{x}/{y}")
+	@PostMapping("/plateaus/{x}/{y}")
     @JsonView(Views.Plateau.class)
     public ResponseEntity<Plateau> generatePlateau(@PathVariable("x") Integer x, @PathVariable("y") Integer y) {
-    	Set<Cellule> cellules = new HashSet<Cellule>();
-    	for (int i = 0 ; i<x ; i++) {
-    		for (int j = 0; j<y; j++) {
-    			Cellule c = new Cellule("scene n"+i+"-"+j , null, "", i,j, i*y+j);
-    			cellules.add(c);
-    			celluleDao.save(c);
-    		}
-    	}
-    	Plateau plateau = new Plateau(cellules,null,x,y,0, 0);
-    	plateauDao.save(plateau);
-    	return new ResponseEntity<Plateau>(plateau,HttpStatus.CREATED);
+        Plateau plateau = new Plateau(null, null, x, y, 0, 0);
+        plateauDao.save(plateau);
+        Set<Cellule> cellules = new HashSet<Cellule>();
+        for (int i = 0 ; i<x ; i++) {
+            for (int j = 0; j<y; j++) {
+                Cellule c = new Cellule("scene n"+i+"-"+j , null, "", i,j, i*y+j);
+                c.setPlateau(plateau);
+                cellules.add(c);
+                celluleDao.save(c);
+            }
+        }
+        //Plateau plateau = new Plateau(cellules,null,x,y,0, 0);
+        plateau.setCellules(cellules);
+        plateauDao.update(plateau);
+        return new ResponseEntity<Plateau>(plateau,HttpStatus.CREATED);
     }
     
 }

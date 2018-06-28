@@ -10,14 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
-@Table(name="direction")
+@Getter
+@Setter
 public class Direction {
 	
 	@Id
@@ -37,21 +40,8 @@ public class Direction {
 	private Set<Route> routes = new HashSet<Route>();
 	
 	public Direction() {}
-	public Direction(int envoieVers) {
-		this.envoieVers = envoieVers;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getEnvoieVers() {
-		return envoieVers;
-	}
-	public void setEnvoieVers(int envoieVers) {
-		this.envoieVers = envoieVers;
-	}
+	
+	
 	
 	
 }
