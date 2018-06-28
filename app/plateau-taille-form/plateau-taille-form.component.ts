@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {PlateauService} from '../plateau.service';
 import {Plateau} from '../plateau';
@@ -15,6 +15,7 @@ export class PlateauTailleFormComponent implements OnInit {
   largeur = new FormControl();
   hauteur = new FormControl();
   plateau: Plateau;
+  @Output() output = new EventEmitter()
   constructor(private fb: FormBuilder,
               private ps: PlateauService) { }
 
@@ -22,15 +23,17 @@ export class PlateauTailleFormComponent implements OnInit {
     this.plateauForm = this.fb.group({});
   }
   submitForm() {
-    console.log('formulaire envoyé');
-    console.log(this.plateauForm.value);
-    console.log(this.plateauForm.valid);
-    console.log(this.largeur);
     this.formSubmitted = true;
     if (this.plateauForm.valid) {
+      let tab;
       this.ps.generate(this.plateau, this.largeur.value, this.hauteur.value).subscribe(
         plateauFromDb => {
-          console.log(plateauFromDb);
+          this.plateau = plateauFromDb;
+           tab = { 'plat':this.plateau,'hauteur':this.hauteur.value, 'largeur':this.largeur.value};
+        },
+        () => {},
+        () => {
+          this.output.emit(tab);
         }
       );
     }

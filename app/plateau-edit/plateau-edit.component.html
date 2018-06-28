@@ -1,8 +1,17 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">Edition de plateau</h5>
-      <div class="row">
-        <app-plateau-taille-form></app-plateau-taille-form>
-      </div>
+    <div class="row">
+      <app-plateau-taille-form (output)="receiveMessage($event)"></app-plateau-taille-form>
+    </div>
+
+  </div>
+</div>
+<div class="card">
+  <div class="row">
+    <div *ngIf="plateau">
+      PLATEAAAAUUU
+      <app-plateau-route-edit [hauteur]="hauteur" [largeur]="largeur" [plateau]="plateau" ></app-plateau-route-edit>
+    </div>
   </div>
 </div>
