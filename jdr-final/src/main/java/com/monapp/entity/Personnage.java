@@ -41,12 +41,12 @@ public class Personnage {
 	
 	@OneToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name ="inventaire")
-	@JsonView(Views.Inventaire.class)
+	@JsonView(Views.Utilisateur.class)
 	private Inventaire inventaire;
 	
 	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name ="utilisateur")
-	@JsonView(Views.Inventaire.class)
+	@JsonView(Views.Utilisateur.class)
 	private Utilisateur utilisateur;
 	
 	//CONSTRUCTEUR
