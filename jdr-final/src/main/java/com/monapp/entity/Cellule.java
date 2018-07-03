@@ -58,15 +58,30 @@ public class Cellule {
 	@JsonView(Views.Common.class)
 	private int position;
 	
+	@Column
+	@JsonView(Views.Common.class)
+	private int numeroDeCase;
 	
 	public Cellule() {}
-	public Cellule(String sceneDescription, Route routesPossible, String imageLien, int coordonneX, int coordonneY, int position) {
+	public Cellule(String sceneDescription, Route routesPossible, String imageLien, int coordonneX, int coordonneY, int position, int numeroDeCase) {
 		this.sceneDescription = sceneDescription;
 		this.routesPossible = routesPossible;
 		this.imageLien = imageLien;
 		this.coordoneeX = coordonneX;
 		this.coordoneeY = coordonneY;
 		this.position = position;
+		this.numeroDeCase = numeroDeCase;
+	}
+	@Override
+	public String toString() {
+		return "Cellule [id=" + id + ", sceneDescription=" + sceneDescription + ", imageLien="
+				+ imageLien + ", coordoneeX=" + coordoneeX + ", coordoneeY=" + coordoneeY + ", position=" + position
+				+ ", numeroDeCase=" + numeroDeCase + "]";
+	}
+	
+	public void addRoute(Route route) {
+		route.addCellule(this);
+		this.setRoutesPossible(route);
 	}
 	
 	

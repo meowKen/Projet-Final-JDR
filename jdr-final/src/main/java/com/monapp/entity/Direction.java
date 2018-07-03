@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -40,6 +41,19 @@ public class Direction {
 	private Set<Route> routes = new HashSet<Route>();
 	
 	public Direction() {}
+	public Direction(int envoieVers) {
+		this.envoieVers = envoieVers;
+	}
+
+	@Override
+	public String toString() {
+		return "Direction [id=" + id + ", envoieVers=" + envoieVers + "]";
+	}
+	
+	public void addRoute(Route route) {
+		route.addDirection(this);
+		routes.add(route);
+	}
 	
 	
 	

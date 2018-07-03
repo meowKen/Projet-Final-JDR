@@ -34,6 +34,8 @@ public class DirectionDaoImpl implements DirectionDao{
 
 	@Override
 	public Direction save(Direction entity) {
+		System.out.println(entity);
+		System.out.println(entity.getRoutes());
 		em.persist(entity);
 		return entity;
 	}

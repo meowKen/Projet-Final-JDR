@@ -1,6 +1,7 @@
 package com.monapp.controller;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import com.monapp.dao.PlateauDao;
 import com.monapp.entity.Cellule;
 import com.monapp.entity.Plateau;
 import com.monapp.entity.Views;
+import com.monapp.service.ServiceImpl;
 
 @RestController
 @CrossOrigin
@@ -33,6 +35,9 @@ public class PlateauController {
 	
 	@Autowired
 	CelluleDao celluleDao;
+	
+	@Autowired
+	ServiceImpl s;
 	
 	@GetMapping("/plateaus/{id}")
 	@JsonView(Views.Plateau.class)
@@ -96,10 +101,10 @@ public class PlateauController {
     public ResponseEntity<Plateau> generatePlateau(@PathVariable("x") Integer x, @PathVariable("y") Integer y) {
         Plateau plateau = new Plateau(null, null, x, y, 0, 0);
         plateauDao.save(plateau);
-        Set<Cellule> cellules = new HashSet<Cellule>();
+        List<Cellule> cellules = new ArrayList<Cellule>();
         for (int i = 0 ; i<x ; i++) {
             for (int j = 0; j<y; j++) {
-                Cellule c = new Cellule("scene n"+i+"-"+j , null, "", i,j, i*y+j);
+                Cellule c = new Cellule("scene n"+i+"-"+j , null, "", i,j, i*y+j, i*y+j);
                 c.setPlateau(plateau);
                 cellules.add(c);
                 celluleDao.save(c);
@@ -107,6 +112,7 @@ public class PlateauController {
         }
         //Plateau plateau = new Plateau(cellules,null,x,y,0, 0);
         plateau.setCellules(cellules);
+        s.constructionLaby(plateau);
         plateauDao.update(plateau);
         return new ResponseEntity<Plateau>(plateau,HttpStatus.CREATED);
     }

@@ -22,8 +22,6 @@ import com.monapp.dao.CelluleDao;
 import com.monapp.entity.Cellule;
 import com.monapp.entity.Views;
 
-import lombok.Getter;
-
 @RestController
 @CrossOrigin
 public class CelluleController {

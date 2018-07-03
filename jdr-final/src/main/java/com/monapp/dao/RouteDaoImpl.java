@@ -34,6 +34,7 @@ public class RouteDaoImpl implements RouteDao{
 
 	@Override
 	public Route save(Route entity) {
+		System.out.println(entity);
 		em.persist(entity);
 		return entity;
 	}

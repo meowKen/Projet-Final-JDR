@@ -1,6 +1,8 @@
 package com.monapp.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,7 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonView;
+import com.monapp.dao.CelluleDao;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +27,7 @@ import lombok.Setter;
 @Setter
 public class Plateau {
 	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonView(Views.Common.class)
@@ -29,7 +35,7 @@ public class Plateau {
 	
 	@OneToMany(mappedBy="plateau", fetch=FetchType.EAGER)
 	@JsonView(Views.Plateau.class)
-	private Set<Cellule> cellules = new HashSet<Cellule>();
+	private List<Cellule> cellules = new ArrayList<Cellule>();
 	
 	@OneToMany(mappedBy="plateau", fetch=FetchType.EAGER)
 	@JsonView(Views.Plateau.class)
@@ -55,7 +61,7 @@ public class Plateau {
 	
 	public Plateau() {}
 	
-	public Plateau(Set<Cellule> cellules, Set<Partie> parties, int largeur, int hauteur, int positionDepart, int positionArrivee) {
+	public Plateau(List<Cellule> cellules, Set<Partie> parties, int largeur, int hauteur, int positionDepart, int positionArrivee) {
 		this.cellules = cellules;
 		this.parties = parties;
 		this.largeur = largeur;
@@ -63,60 +69,41 @@ public class Plateau {
 		this.positionDepart = positionDepart;
 		this.positionArrivee = positionArrivee;
 	}
+	
 
-	public int getId() {
-		return id;
-	}
+	public List<Cellule> voisinageN(Cellule caseEnCours) {
+        int departX = caseEnCours.getCoordoneeX();
+        int departY = caseEnCours.getCoordoneeY();
+        List<Cellule> listeCellules = new ArrayList();
+        if (caseEnCours.getCoordoneeX()>0) {
+            listeCellules.add(getByCoord(departX-1, departY));
+        }
+        if (caseEnCours.getCoordoneeX()<largeur-1) {
+            listeCellules.add(getByCoord(departX+1, departY));
+        }
+        if (caseEnCours.getCoordoneeY()>0) {
+            listeCellules.add(getByCoord(departX, departY-1));
+        }
+        if (caseEnCours.getCoordoneeY()<hauteur-1) {
+            listeCellules.add(getByCoord(departX, departY+1));
+        }
+        return listeCellules;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private Cellule getByCoord(int x, int y){
+        for(Cellule c : cellules){
+            if(c.getCoordoneeX() == x && c.getCoordoneeY() == y){
+                return c;
+            }
+        }
+        return null;
+    }
 
-	public Set<Cellule> getCellules() {
-		return cellules;
-	}
-
-	public void setCellules(Set<Cellule> cellules) {
-		this.cellules = cellules;
-	}
-
-	public int getLargeur() {
-		return largeur;
-	}
-
-	public void setLargeur(int largeur) {
-		this.largeur = largeur;
-	}
-
-	public int getHauteur() {
-		return hauteur;
-	}
-
-	public void setHauteur(int hauteur) {
-		this.hauteur = hauteur;
-	}
-
-	public Set<Partie> getParties() {
-		return parties;
-	}
-
-	public void setParties(Set<Partie> parties) {
-		this.parties = parties;
+	@Override
+	public String toString() {
+		return "Plateau [id=" + id + ", largeur=" + largeur + ", hauteur=" + hauteur + ", positionDepart="
+				+ positionDepart + ", positionArrivee=" + positionArrivee + "]";
 	}
 	
-	public int getPositionDepart() {
-		return positionDepart;
-	}
-	public void setPositionDepart(int positionDepart) {
-		this.positionDepart = positionDepart;
-	}
-	public int getPositionArrivee() {
-		return positionArrivee;
-	}
-	public void setPositionArrivee(int positionArrivee) {
-		this.positionArrivee = positionArrivee;
-	}
-	
-	
-	
+    
 }

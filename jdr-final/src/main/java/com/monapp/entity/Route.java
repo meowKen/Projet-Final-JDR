@@ -50,17 +50,17 @@ public class Route {
 	public Route(Set<Direction> directions) {
 		this.directions = directions;
 	}
-	public int getId() {
-		return id;
+	
+	public void addDirection(Direction d) {
+		directions.add(d);
 	}
-	public void setId(int id) {
-		this.id = id;
+	
+	public void addCellule(Cellule cellule) {
+		this.setCellule(cellule);
 	}
-	public Set<Direction> getDirections() {
-		return directions;
-	}
-	public void setDirections(Set<Direction> directions) {
-		this.directions = directions;
+	@Override
+	public String toString() {
+		return "Route [id=" + id + ", directions=" + directions + ", cellule=" + cellule + "]";
 	}
 	
 	
