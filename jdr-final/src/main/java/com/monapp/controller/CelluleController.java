@@ -1,5 +1,6 @@
 package com.monapp.controller;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -90,6 +91,17 @@ public class CelluleController {
     @JsonView(Views.Cellule.class)
     public ResponseEntity<Set<Cellule>> findByPlateau(@PathVariable("id") Integer id) {
     	Set<Cellule> cellules = celluleDao.findByPlateau(id);
+    	Set<Cellule> celTemp = new HashSet<Cellule>();
+    	for(Cellule c : cellules) {
+    		if(c.getRoutesPossible()==null) {
+    			System.out.println(c + "null");
+    			celTemp.add(c);
+    		}
+    	}
+    	for(Cellule c : celTemp) {
+    		cellules.remove(c);
+    		System.out.println(c + "null et enlevé de la liste");
+    	}
 		return new ResponseEntity<Set<Cellule>>(cellules, HttpStatus.OK);
     }
     
